@@ -1,0 +1,74 @@
+version: '3.7'
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: issue-tracker-nginx
+    restart: unless-stopped
+    ports:
+      - '8000:80'
+    volumes:
+      - ./:/var/www/html:cached
+      - ./.docker/nginx:/etc/nginx/conf.d
+    networks:
+      - issue-tracker-network
+    depends_on:
+      - app
+
+  app:
+    build:
+      args:
+        user: Shakil
+        uid: 1000
+      context: .
+      dockerfile: Dockerfile
+    image: issue-tracker
+    container_name: issue-tracker
+    restart: unless-stopped
+    working_dir: /var/www/html
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/var/www/html:cached
+    networks:
+      - issue-tracker-network
+    depends_on:
+      - database
+
+  database:
+    image: mariadb:10.5.8
+    container_name: issue-tracker-mariadb
+    restart: unless-stopped
+    ports:
+      - '3306:3306'
+    volumes:
+      - issue-tracker-volume:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+    networks:
+      - issue-tracker-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: issue-tracker-phpmyadmin
+    restart: unless-stopped
+    tty: true
+    depends_on:
+      - database
+    ports:
+      - '9000:80'
+    environment:
+      PMA_HOST: database
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - issue-tracker-network
+
+networks:
+  issue-tracker-network:
+    driver: bridge
+
+volumes:
+  issue-tracker-volume:
+    driver: local

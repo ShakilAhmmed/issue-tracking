@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
+import {Request, Response} from 'express';
 
 export default interface ResourceController {
-  index: (request: Request, response: Response) => Response;
-  store: (request: Request, response: Response) => Response;
-  show: (request: Request, response: Response) => Response;
-  update: (request: Request, response: Response) => Response;
-  destroy: (request: Request, response: Response) => Response;
+    index: (request: Request, response: Response) => Promise<Response>;
+    store: (request: Request, response: Response) => Promise<Response>;
+    show: (request: Request, response: Response) => Promise<Response>;
+    update: (request: Request, response: Response) => Promise<Response>;
+    destroy: (request: Request, response: Response) => Promise<Response>;
 }

@@ -1,39 +1,13 @@
-### Commands:
+# Create Model
 
-# db:migrate Run pending migrations
+```nodejs
+npx sequelize-cli model:generate --name User --attributes name:string,email:string,password:string,status:boolean
+```
 
-# db:migrate:schema:timestamps:add Update migration table to have timestamps
+#### Change the extension of model file to .ts and change to typescript syntax
 
-# db:migrate:status List the status of all migrations
+# Migrate
 
-# db:migrate:undo Reverts a migration
-
-# db:migrate:undo:all Revert all migrations ran
-
-# db:seed Run specified seeder
-
-# db:seed:undo Deletes data from the database
-
-# db:seed:all Run every seeder
-
-# db:seed:undo:all Deletes data from the database
-
-# db:create Create database specified by configuration
-
-# db:drop Drop database specified by configuration
-
-# init Initializes project
-
-# init:config Initializes configuration
-
-# init:migrations Initializes migrations
-
-# init:models Initializes models
-
-# init:seeders Initializes seeders
-
-# migration:generate Generates a new migration file [aliases: migration:create]
-
-# model:generate Generates a model and its migration [aliases: model:create]
-
-# seed:generate Generates a new seed file [aliases: seed:create]
+```nodejs
+npx sequelize-cli db:migrate
+```
