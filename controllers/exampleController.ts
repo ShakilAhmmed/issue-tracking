@@ -1,8 +1,7 @@
 import {Request, Response} from 'express';
 import HttpResponse from '../constants/Response';
-import ResourceController from '../interfaces/ResourceController';
 
-let exampleController: ResourceController = {
+let exampleController = {
     index: async (request: Request, response: Response): Promise<Response> => {
         return response.status(HttpResponse.HTTP_OK).json({
             data: 'from index'

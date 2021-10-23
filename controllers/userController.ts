@@ -26,7 +26,7 @@ let userController = {
         try {
             const errors = validationResult(request);
             if (!errors.isEmpty()) {
-                return response.status(422).json({errors: errors.array()});
+                return response.status(HttpResponse.HTTP_UNPROCESSABLE_ENTITY).json({errors: errors.array()});
             }
             let {name, email, password, status} = request.body;
             let encryptPassword = await bcrypt.hash(password, 10);
