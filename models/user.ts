@@ -31,12 +31,12 @@ module.exports = (sequelize: any, DataTypes: any) => {
 			name: DataTypes.STRING,
 			email: DataTypes.STRING,
 			password: DataTypes.STRING,
-			status: DataTypes.BOOLEAN,
+			status: DataTypes.BOOLEAN
 		},
 		{
 			sequelize,
-			modelName: 'User',
-		},
+			modelName: 'User'
+		}
 	);
 	return User;
 };
