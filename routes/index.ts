@@ -6,11 +6,13 @@ let router: Router = express.Router();
 
 router.get('/example', exampleController.index).post('/example', exampleController.store);
 router
-	.get('/users', userController.index)
-	.post('/users', userController.validation, userController.store);
+  .get('/users', userController.index)
+  .post('/users', userController.validation, userController.store);
+
+router.post('/login', userController.loginValidation, userController.login);
 
 router
-	.get('/example/:id', exampleController.show)
-	.delete('/example/:id', exampleController.destroy);
+  .get('/example/:id', exampleController.show)
+  .delete('/example/:id', exampleController.destroy);
 
 export default router;
